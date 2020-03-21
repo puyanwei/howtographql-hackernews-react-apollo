@@ -14,10 +14,11 @@ const POST_MUTATION = gql`
 `;
 
 const CreateLink = ({ history }) => {
-  const [description, setDescription] = useState("");
-  const [url, setUrl] = useState("");
-  const handleDescriptionChange = e => setDescription(e.target.value);
-  const handleUrlChange = e => setUrl(e.target.value);
+  const [newLink, setNewLink] = useState({ description: "", url: "" });
+  const handleDescriptionChange = e =>
+    setNewLink({ ...newLink, description: e.target.value });
+  const handleUrlChange = e => setNewLink({ ...newLink, url: e.target.value });
+  const { description, url } = newLink;
 
   return (
     <div>
