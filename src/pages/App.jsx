@@ -1,9 +1,9 @@
 import React from "react";
 import "../styles/App.css";
-import LinkList from "../components/LinkList";
+import CreateLink from "../pages/CreateLink";
 
 const App = () => {
-  return <LinkList />;
+  return <CreateLink />;
 };
 
 export default App;
