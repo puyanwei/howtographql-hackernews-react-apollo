@@ -157,16 +157,14 @@ const LinkList = ({ location, match, history }) => {
           : 0;
         return (
           <>
-            <div>
-              {data.feed.links.map((link, index) => (
-                <Link
-                  key={link.id}
-                  link={link}
-                  index={index}
-                  updateStoreAfterVote={_updateCacheAfterVote}
-                />
-              ))}
-            </div>
+            {linksToRender.map((link, index) => (
+              <Link
+                key={link.id}
+                link={link}
+                index={index + pageIndex}
+                updateStoreAfterVote={_updateCacheAfterVote}
+              />
+            ))}
             {isNewPage && (
               <div className="flex ml4 mv3 gray">
                 <div className="pointer mr2" onClick={_previousPage}>
