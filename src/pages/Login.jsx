@@ -26,7 +26,6 @@ const Login = ({ history }) => {
     password: "",
     name: ""
   });
-
   const { login, email, password, name } = loginDetails;
 
   const _saveUserData = token => {

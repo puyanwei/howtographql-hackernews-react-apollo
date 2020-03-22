@@ -16,10 +16,23 @@ const POST_MUTATION = gql`
 
 const CreateLink = ({ history }) => {
   const [newLink, setNewLink] = useState({ description: "", url: "" });
+  const { description, url } = newLink;
+
   const handleDescriptionChange = e =>
     setNewLink({ ...newLink, description: e.target.value });
+
   const handleUrlChange = e => setNewLink({ ...newLink, url: e.target.value });
-  const { description, url } = newLink;
+
+  const handleOnCompletedPost = () => history.push("/");
+
+  const handleUpdateFeed = (store, { data: { post } }) => {
+    const data = store.readQuery({ query: FEED_QUERY });
+    data.feed.links.unshift(post);
+    store.writeQuery({
+      query: FEED_QUERY,
+      data
+    });
+  };
 
   return (
     <div>
@@ -42,15 +55,8 @@ const CreateLink = ({ history }) => {
       <Mutation
         mutation={POST_MUTATION}
         variables={{ description, url, history }}
-        onCompleted={() => history.push("/")}
-        update={(store, { data: { post } }) => {
-          const data = store.readQuery({ query: FEED_QUERY });
-          data.feed.links.unshift(post);
-          store.writeQuery({
-            query: FEED_QUERY,
-            data
-          });
-        }}
+        onCompleted={handleOnCompletedPost}
+        update={handleUpdateFeed}
       >
         {postMutation => <button onClick={postMutation}>Submit</button>}
       </Mutation>
