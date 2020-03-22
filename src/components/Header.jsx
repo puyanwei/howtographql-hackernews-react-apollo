@@ -15,7 +15,7 @@ const Header = ({ history }) => {
       <div className="flex flex-fixed black">
         <div className="fw7 mr1">Hacker News</div>
         <Link to="/" className="ml1 no-underline black">
-          new
+          feed
         </Link>
         {authToken && (
           <div className="flex">
