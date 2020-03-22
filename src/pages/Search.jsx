@@ -3,19 +3,49 @@ import { withApollo } from "react-apollo";
 import gql from "graphql-tag";
 import Link from "../components/Link";
 
-const Search = () => {
-  const [blaa, setBlaa] = useState({
+const FEED_SEARCH_QUERY = gql`
+  query FeedSearchQuery($filter: String!) {
+    feed(filter: $filter) {
+      links {
+        id
+        url
+        description
+        createdAt
+        postedBy {
+          id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
+        }
+      }
+    }
+  }
+`;
+
+const Search = ({ client }) => {
+  const [searchDetails, setSearchDetails] = useState({
     links: [],
     filter: ""
   });
-  const { links, filter } = blaa;
+  const { links, filter } = searchDetails;
 
   const _executeSearch = async () => {
-    // ... you'll implement this 🔜
+    const result = await client.query({
+      query: FEED_SEARCH_QUERY,
+      variables: { filter }
+    });
+    const links = result.data.feed.links;
+    setSearchDetails({ ...searchDetails, links });
   };
 
-  const handleOnChange = e => setBlaa({ ...blaa, filter: e.target.value });
-  const handleClick = () => this._executeSearch();
+  const handleClick = () => _executeSearch();
+
+  const handleOnChange = e =>
+    setSearchDetails({ ...searchDetails, filter: e.target.value });
 
   return (
     <div>
