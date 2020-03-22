@@ -1,46 +1,35 @@
 import React, { useState } from "react";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
 import { FEED_QUERY } from "./LinkList";
-import { LINKS_PER_PAGE } from "../constants";
-
-const POST_MUTATION = gql`
-  mutation PostMutation($description: String!, $url: String!) {
-    post(description: $description, url: $url) {
-      id
-      createdAt
-      url
-      description
-    }
-  }
-`;
+import { POST_MUTATION } from "../queries/CreateLinkMutation";
 
 const CreateLink = ({ history }) => {
   const [newLink, setNewLink] = useState({ description: "", url: "" });
   const { description, url } = newLink;
+
+  const [PostMutation] = useMutation(POST_MUTATION, {
+    variables: { description, url },
+    update: () => handleUpdateFeed(),
+    onCompleted: () => {
+      history.push("/");
+    }
+  });
 
   const handleDescriptionChange = e =>
     setNewLink({ ...newLink, description: e.target.value });
 
   const handleUrlChange = e => setNewLink({ ...newLink, url: e.target.value });
 
-  const handleOnCompletedPost = () => history.push("/new/1");
-
   const handleUpdateFeed = (store, { data: { post } }) => {
-    const first = LINKS_PER_PAGE;
-    const skip = 0;
-    const orderBy = "createdAt_DESC";
-    const data = store.readQuery({
-      query: FEED_QUERY,
-      variables: { first, skip, orderBy }
-    });
+    const data = store.readQuery({ query: FEED_QUERY });
     data.feed.links.unshift(post);
     store.writeQuery({
       query: FEED_QUERY,
-      data,
-      variables: { first, skip, orderBy }
+      data
     });
   };
+
+  const handleClick = () => PostMutation({ description, url });
 
   return (
     <div>
@@ -60,14 +49,7 @@ const CreateLink = ({ history }) => {
           placeholder="The URL for the link"
         />
       </div>
-      <Mutation
-        mutation={POST_MUTATION}
-        variables={{ description, url, history }}
-        onCompleted={handleOnCompletedPost}
-        update={handleUpdateFeed}
-      >
-        {postMutation => <button onClick={postMutation}>Submit</button>}
-      </Mutation>
+      <button onClick={handleClick}>Submit</button>
     </div>
   );
 };
