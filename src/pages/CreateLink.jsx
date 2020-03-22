@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { FEED_QUERY } from "./LinkList";
+import { FEED_QUERY } from "../queries/FeedListQuery";
 import { POST_MUTATION } from "../queries/CreateLinkMutation";
 
 const CreateLink = ({ history }) => {

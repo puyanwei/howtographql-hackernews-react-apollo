@@ -1,80 +1,10 @@
 import React from "react";
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import Link from "../components/Link";
 import { LINKS_PER_PAGE } from "../constants";
-
-export const FEED_QUERY = gql`
-  query FeedQuery($first: Int, $skip: Int, $orderBy: LinkOrderByInput) {
-    feed(first: $first, skip: $skip, orderBy: $orderBy) {
-      links {
-        id
-        createdAt
-        url
-        description
-        postedBy {
-          id
-          name
-        }
-        votes {
-          id
-          user {
-            id
-          }
-        }
-      }
-      count
-    }
-  }
-`;
-
-const NEW_LINKS_SUBSCRIPTION = gql`
-  subscription {
-    newLink {
-      id
-      url
-      description
-      createdAt
-      postedBy {
-        id
-        name
-      }
-      votes {
-        id
-        user {
-          id
-        }
-      }
-    }
-  }
-`;
-
-const NEW_VOTES_SUBSCRIPTION = gql`
-  subscription {
-    newVote {
-      id
-      link {
-        id
-        url
-        description
-        createdAt
-        postedBy {
-          id
-          name
-        }
-        votes {
-          id
-          user {
-            id
-          }
-        }
-      }
-      user {
-        id
-      }
-    }
-  }
-`;
+import { FEED_QUERY } from "../queries/FeedListQuery";
+import { NEW_LINKS_SUBSCRIPTION } from "../queries/NewLinksSubscription";
+import { NEW_VOTES_SUBSCRIPTION } from "../queries/NewVotesSubscription";
 
 const LinkList = ({ location, match, history }) => {
   const _getQueryVariables = () => {
