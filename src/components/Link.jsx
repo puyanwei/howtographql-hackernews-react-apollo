@@ -56,8 +56,8 @@ const Link = ({
           {description} ({url})
         </div>
         <div className="f6 lh-copy gray">
-          {votes.length} votes | by {postedBy?.name || "Unknown"}
-          {timeDifferenceForDate(createdAt)}
+          {`${votes.length} votes | by ${postedBy?.name || "Unknown"}
+           ${timeDifferenceForDate(createdAt)}`}
         </div>
       </div>
     </div>
