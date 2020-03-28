@@ -1,68 +1,31 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Hacker News Board
 
-## Available Scripts
+This is a mock [hackernews](https://news.ycombinator.com/) style feed board created by following the React & Apollo [tutorial](https://www.howtographql.com/react-apollo/0-introduction/) on howtographql.com.
 
-In the project directory, you can run:
+Although slightly out of date, this gave me a good insight to how GraphQL and Apollo work together with React.
 
-### `yarn start`
+As an extra challenge my version of this is written using React hooks.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![image](https://user-images.githubusercontent.com/14803518/77821983-84bd2a00-70e6-11ea-8ee2-30bae1eabfb0.png)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Installation
 
-### `yarn test`
+```
+git clone git@github.com:puyanwei/howtographql-hackernews-react-apollo.git
+cd hackernews-react-apollo
+npm install
+cd server
+npm install
+npm run prisma deploy
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+When prompted where to set/deploy your service select `Demo server`
+You will have to login with your github creditionals and select a region.
 
-### `yarn build`
+An endpoint will be written to `prisma.yml`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```
+npm run server
+cd ../
+npm start
+```
